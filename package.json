@@ -1,6 +1,7 @@
 {
   "name": "laur221",
   "version": "1.0.0",
+  "description": "Aplicație backend pentru trimiterea de emailuri",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
